@@ -15,21 +15,267 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="t-body">
 		<slot />
 	</body>
 </html>
+
 <style is:global>
+
+	/* Typography */
+	@font-face {
+	font-family: 'Manrope';
+	src: url('./fonts/Manrope[wght].woff2') format('woff2-variations');
+	font-weight: 200 800;
+	font-style: normal;
+	}
+
+	@font-face {
+	font-family: 'Newsreader';
+	src: url('./fonts/Newsreader-VariableFont_opsz\,wght.ttf') format('woff2-variations');
+	font-weight: 200 800;
+	font-optical-sizing: auto;
+	font-style: normal;
+	}
+
 	:root {
 		--accent: 124, 58, 237;
 		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+
+		/* Colorbook */
+		--color-charcoal-011: #161c24;
+		--color-charcoal-021: #4F4F4F;
+		--color-charcoal-041: #73767a;
+		--color-white: #e8f8ff;
+		--color-alarm-049: #ec110d;
+		--color-alarm-039: #bd0e0a;
+		--color-slate-blue-050: #4878b8;
+
+		/* Spacing */
+		--space-eighth: 0.2rem;
+		--space-quarter: 0.4rem;
+		--space-half: 0.8rem;
+		--space-dozen: 1.2rem;
+		--space-default: 1.6rem;
+		--space-double: 3.2rem;
+		--space-quad: 6.4rem;
+		--space-oct: 12.8rem;
+
+		/* Typography */
+		--font-family-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		--font-family-serif: 'Newsreader', serif;
+
+		/* Font Weights */
+		--weight-light: 200;
+		--weight-regular: 400;
+		--weight-semibold: 600;
+		--weight-extrabold: 800;
+
+		/* Design elements */
+		--transition: 300ms ease-in-out;
+		--border-radius-default: 0.4rem;
+		--border-radius-large: 0.8rem;
 	}
+
+	/* Reset */
 	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
+		box-sizing: border-box;
+		font-size: 62.5%;
 	}
+
+	*, *::before, *::after {
+		box-sizing: inherit;
+	}
+
+	html, body {
+		height: 100%;
+	}
+
 	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+	font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+		Bitstream Vera Sans Mono, Courier New, monospace;
 	}
+
+	body {
+		margin: 0;
+		font-family: var(--font-family-sans);
+		font-size: 1.6rem;
+		background-color: var(--color-white);
+	}
+
+	/* Type Specs */
+	.t-brand {
+		font-family: var(--font-family-sans);
+		font-size: 4.0rem;
+		font-weight: var(--weight-regular);
+		line-height: 1.2;
+		color: var(--color-charcoal-021);
+	}
+
+	.t-copy-large {
+		font-family: var(--font-family-sans);
+		font-size: 1.6rem;
+		font-weight: var(--weight-semibold);
+		line-height: 1;
+	}
+
+	.t-weighted {
+		font-weight: var(--weight-semibold);
+		color: var(--color-charcoal-011);
+	}
+
+	.t-link {
+		font-family: var(--font-family-sans);
+		font-size: 1.6rem;
+		font-weight: var(--weight-bold);
+		line-height: 1;
+		color: var(--color-charcoal-021);
+		transition: var(--transition) color, var(--transition) outline-color;
+		outline: 0.4rem solid transparent;
+		outline-offset: 0.2rem;
+	}
+
+	.t-link:hover {
+		color: var(--color-charcoal-046);
+	}
+
+	.t-link:focus {
+		outline-color: var(--color-slate-blue-050);
+	}
+
+	.t-display {
+		font-family: var(--font-family-serif);
+		letter-spacing: -0.2rem;
+	}
+
+	@media (max-width: 575px) {
+		.t-display {
+			font-size: 3.2rem;
+			line-height: 1.25;
+		}
+	}
+
+	@media (min-width: 576px) and (max-width: 1703px) {
+		.t-display {
+			font-size: 5.6rem;
+			line-height: 1.143;
+		}
+	}
+
+	@media (min-width: 1704px) {
+		.t-display {
+			font-size: 8rem;
+			line-height: 1.2;
+		}
+	}
+
+	.t-body {
+		font-family: var(--font-family-sans);
+		font-size: 1.6rem;
+		font-weight: var(--weight-regular);
+		line-height: 1.286;
+	}
+
+	.t-title {
+		font-family: var(--font-family-sans);
+		font-weight: var(--weight-black);
+	}
+
+	@media (max-width: 1199px) {
+		.t-title {
+			font-size: 2.4rem;
+			line-height: 1.167;
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.t-title {
+			font-size: 2.8rem;
+			line-height: 1.143;
+		}
+	}
+
+	.t-section-number {
+		font-family: var(--font-family-serif);
+		font-size: 12rem;
+		line-height: 1;
+		letter-spacing: -0.2rem;
+	}
+
+	.t-copy-fluid {
+		font-family: 'Manrope', var(--font-family-sans);
+		font-weight: var(--weight-bold);
+		line-height: 1;
+	}
+
+	@media (max-width: 575px) {
+		.t-copy-fluid {
+			font-size: 1.4rem;
+		}
+	}
+
+	@media (min-width: 576px) {
+		.t-copy-fluid {
+			font-size: 1.6rem;
+		}
+	}
+
+	/* Screen Reader Only */
+	.screen-reader-only {
+		padding: 0;
+		width: 1px;
+		height: 1px;
+		position: absolute;
+		clip: rect(1px, 1px, 1px, 1px);
+		clip-path: inset(0px 0px 99.9% 99.9%);
+		overflow: hidden;
+		border: 0;
+	}
+
+	/* Skip Nav */
+	.skip-nav {
+		padding: var(--space-default);
+		display: inline-block;
+		position: absolute;
+		color: var(--color-white);
+		background-color: var(--color-charcoal-021);
+		border-radius: var(--border-radius-default);
+		text-decoration: none;
+		transition: var(--transition) background-color, var(--transition) transform, var(--transition) outline-color;
+		outline: 0.4rem solid transparent;
+		outline-offset: 0.2rem;
+	}
+
+	@media (max-width: 1024px) {
+		.skip-nav {
+			transform: translate(var(--space-default), calc(var(--space-quad) * -1));
+		}
+	}
+
+	@media (min-width: 1025px) {
+		.skip-nav {
+			transform: translate(var(--space-oct), calc(var(--space-quad) * -1));
+		}
+	}
+
+	.skip-nav:hover {
+		background-color: var(--color-charcoal-011);
+	}
+
+	.skip-nav:focus {
+		outline-color: var(--color-slate-blue-050);
+	}
+
+	@media (max-width: 1024px) {
+		.skip-nav:focus {
+			transform: translate(var(--space-default), var(--space-default));
+		}
+	}
+
+	@media (min-width: 1025px) {
+		.skip-nav:focus {
+			transform: translate(var(--space-oct), var(--space-double));
+		}
+	}
+
 </style>

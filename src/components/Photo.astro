@@ -1,0 +1,78 @@
+---
+export interface Props {
+	location: string;
+  info?: string;
+  photoDate?: Date;
+  publishedDate?: Date;
+  updatedDate?: Date;
+  imgSrc: string;
+  imgAlt: string;
+}
+
+const { location, info, photoDate, imgSrc, imgAlt } = Astro.props;
+---
+
+<div class="photo" style={`background-image:url(${imgSrc}); background-color: hsl(375, 50%, 90%);`}>
+  <div class="info">
+    <div>
+      <p class="subtle-info">Photographed at</p>
+      <p>{location}, {info}</p>
+      <p class="subtle-info">Taken on {photoDate}</p>
+    </div>
+    <img src={imgSrc} class="screen-reader-only" alt={imgAlt}>
+    <a href="#" class="t-link">Explore more</a>
+  </div>
+</div>
+
+<style>
+div.photo {
+  background-color: #FBDEB9;
+  background-blend-mode: multiply;
+  /*background-size: cover;*/
+  background-size: 110% auto;
+  background-position: 50% 50%;
+  padding-bottom: 58%;
+  position: relative;
+}
+
+div.info {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.4rem;
+    padding-top: var(--space-dozen);
+    padding-bottom: var(--space-dozen);
+    display: flex;
+    justify-content: center;
+}
+
+div.info p {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.2rem;
+}
+
+p.subtle-info {
+    color: #B3B3B3;
+}
+
+
+
+@media (min-width: 1000px) {
+  div.photo {
+    position: fixed;
+    background-size: cover;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    width: calc(40%);
+    z-index: 999;
+  }
+
+  body {
+    width: 60%;
+    margin-right: 40%;
+  }
+}
+</style>

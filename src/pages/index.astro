@@ -1,14 +1,26 @@
 ---
+import { getCollection } from "astro:content";
+import {format} from 'date-fns';
+
+export const prerender = true;
+
+const allPosts = await getCollection("posts");
+
+const allPhotos = await getCollection("photos", ({ data }) => {
+  return data.isDraft !== true;
+});
+
+let randomPhoto = allPhotos.map(item => item)[Math.floor(Math.random() * allPhotos.length)];
+
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import Photo from "../components/Photo.astro";
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		<p class="t-brand">
+			<span class="t-weighted">Brian Hinton</span> is an accessibility-centered product design lead working to craft inclusive design, and technology experiences.
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
@@ -32,8 +44,27 @@ import Card from '../components/Card.astro';
 				body="Come say hi to our amazing Discord community. ❤️"
 			/>
 		</ul>
+
+		<ul>
+			{allPosts.map(post => (
+			  <li>
+				<h2 class="t-display">{post.data.title}</h2>
+				<time datetime={post.data.publishedDate.toISOString()}>
+				  {post.data.publishedDate.toDateString()}
+				</time>
+				<p>{post.data.author}</p>
+				<p>{post.data.summary}</p>
+			  </li>
+			))}
+		  </ul>
+
+		<section class="photo-container">
+				<Photo location={randomPhoto.data.location} info={randomPhoto.data.info} photoDate={format(new Date(randomPhoto.data.photoDate), 'MMMM dd, yyyy')} imgAlt={randomPhoto.data.image.alt} imgSrc={randomPhoto.data.image.src} />
+		</section>
 	</main>
 </Layout>
+
+
 
 <style>
 	main {
