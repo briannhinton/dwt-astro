@@ -34,18 +34,28 @@ const promoSchema = defineCollection({
 		link: z.string(),
 		summary: z.string(),
 		image: z.object({
-			url: z.string(),
+			src: z.string(),
+			alt: z.string()
+		}).optional(),
+	})
+})
+
+const productSchema = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		company: z.string(),
+		link: z.string(),
+		summary: z.string(),
+		image: z.object({
+			src: z.string(),
 			alt: z.string()
 		}),
-		review: z.object({
-			url: z.string(),
-			text: z.string()
-		}).optional(),
 	})
 })
 
 export const collections = {
   posts: postSchema,
   promos: promoSchema,
-  photos: photoSchema
+  photos: photoSchema,
+  products: productSchema,
 };

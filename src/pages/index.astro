@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import {format} from 'date-fns';
+import createSlug from "../lib/createSlug";
 
 export const prerender = true;
 
@@ -48,12 +49,16 @@ import Photo from "../components/Photo.astro";
 		<ul>
 			{allPosts.map(post => (
 			  <li>
-				<h2 class="t-display">{post.data.title}</h2>
-				<time datetime={post.data.publishedDate.toISOString()}>
-				  {post.data.publishedDate.toDateString()}
-				</time>
-				<p>{post.data.author}</p>
-				<p>{post.data.summary}</p>
+					<h2 class="t-display">
+						<a href={`/posts/${createSlug(post.data.title)}`}>
+							{post.data.title}
+						</a>
+					</h2>
+					<time datetime={post.data.publishedDate.toISOString()}>
+						{post.data.publishedDate.toDateString()}
+					</time>
+					<p>{post.data.author}</p>
+					<p>{post.data.summary}</p>
 			  </li>
 			))}
 		  </ul>
