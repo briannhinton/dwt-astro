@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import {format} from 'date-fns';
 import createSlug from "../lib/createSlug";
+import random from "../lib/random";
 
 export const prerender = true;
 
@@ -11,7 +12,7 @@ const allPhotos = await getCollection("photos", ({ data }) => {
   return data.isDraft !== true;
 });
 
-let randomPhoto = allPhotos.map(item => item)[Math.floor(Math.random() * allPhotos.length)];
+let randomPhoto = random(allPhotos);
 
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
