@@ -1,24 +1,24 @@
 ---
-import { getCollection, CollectionEntry } from "astro:content";
+import { getCollection } from 'astro:content';
 import Layout from "../../layouts/Layout.astro";
-import createSlug from "../../lib/createSlug";
 
 export const prerender = true;
 
+// 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const post = await getCollection("posts");
-  return post.map((post) => ({
-    params: { slug: createSlug(post.data.title) },
-    props: post,
+  const post = await getCollection('posts');
+  return post.map(post => ({
+    params: { slug: post.slug }, props: { post },
   }));
 }
-const { data, render, id } = Astro.props;
-const { Content, headings } = await render();
+// 2. When it's time to render, you can get the entry directly from the prop
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
 
 ---
 
-<Layout title={data.title}>
-  <h1>{data.title}</h1>
+<Layout title={post.title}>
+  <h1>{post.title}</h1>
   <aside class="hidden text-right sm:sticky sm:top-20 sm:block">
     <h2 class="font-semibold">Table of Contents</h2>
     <ul class="mt-4 space-y-2 text-xs">
