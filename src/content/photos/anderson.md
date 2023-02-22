@@ -1,6 +1,6 @@
 ---
-location: "Testing Collections 3"
-info: "This is testing collections 3"
+location: "Mount Davidson"
+info: "San Francisco, California"
 image:
     src: /photos/photo3.jpeg
     alt: This is a test of photos

@@ -25,33 +25,37 @@ let randomPhoto = random(allPhotos);
 		<p class="t-brand">
 			<span class="t-weighted">Brian Hinton</span> is an accessibility-centered product design lead working to craft inclusive design, and technology experiences.
 		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+
+		<section>
+			<h2>Products</h2>
+			<ul role="list" class="link-card-grid">
+				<Card
+					href="https://docs.astro.build/"
+					title="Documentation"
+					company="Learn how Astro works and explore the official API docs."
+				/>
+				<Card
+					href="https://astro.build/integrations/"
+					title="Integrations"
+					company="Supercharge your project with new frameworks and libraries."
+				/>
+				<Card
+					href="https://astro.build/themes/"
+					title="Themes"
+					company="Explore a galaxy of community-built starter themes."
+				/>
+				<Card
+					href="https://astro.build/chat/"
+					title="Community"
+					company="Come say hi to our amazing Discord community. ❤️"
+				/>
+			</ul>
+		</section>
 
 		<ul>
 			{allPosts.map(post => (
 			  <li>
-					<h2 class="t-display">
+					<h2 class="t-display t-link">
 						<a href={`/posts/${post.slug}`}>
 							{post.data.title}
 						</a>
@@ -72,17 +76,20 @@ let randomPhoto = random(allPhotos);
 </Layout>
 
 
-
 <style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
 	main {
 		margin: auto;
 		padding: 1.5rem;
 		max-width: 60ch;
 	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
+	p {
 		margin: 0;
+		padding: 0;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);

@@ -1,0 +1,48 @@
+---
+import { MENU_LINKS } from "@/data/constants";
+
+const url = new URL(Astro.request.url);
+---
+
+<nav
+  id="navigation-menu"
+  class="main-nav"
+  aria-label="Primary"
+  >
+  <ul>
+  {
+    MENU_LINKS.map((link) => (
+      <li>
+        <a
+      href={link.path}
+      class="t-link"
+      aria-current={url.pathname === link.path ? "page" : false}
+      rel="prefetch"
+      >
+      {link.title}
+        </a>
+      </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  nav.main-nav {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 5.6rem;
+    width: 100%;
+  }
+  ul {
+    display: flex;
+    gap: 3.2rem;
+		margin: auto;
+    padding: 0;
+		padding: 2.4rem 1.5rem;
+		max-width: 60ch;
+    list-style-type: none;
+	}
+  nav.main-nav a {
+    padding: 0;
+  }
+</style>
